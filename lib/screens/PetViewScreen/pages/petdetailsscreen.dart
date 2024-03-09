@@ -3,10 +3,10 @@ import 'package:line_icons/line_icons.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
 import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
 import 'package:pet_shop/screens/AdoptionCartScreen/provider/adoptioncartprovider.dart';
+import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
+import 'package:pet_shop/screens/PetFavouriteScreen/provider/petfavprovider.dart';
 import 'package:pet_shop/screens/PetViewScreen/provider/petprovider.dart';
-
 import 'package:provider/provider.dart';
-
 class PetDetailsScreen extends StatefulWidget {
   static const routeName = 'pets_details_screen';
   final String id;
@@ -23,6 +23,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
     final size=MediaQuery.of(context).size;
        final pets = Provider.of<PetProvider>(context,listen: false);
         final petcartapi=Provider.of<AdoptionCartProvider>(context,listen: false);
+        final favpet=Provider.of<FavouriteProvider>(context,listen: false);
       final petData =
         Provider.of<PetProvider>(context).pets.firstWhere((element) => element.petId == widget.id);
     return SafeArea(
@@ -108,7 +109,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Weight',style: TextStyle(color:purpleColor,fontWeight: FontWeight.w900),),
-                        Text(petData.petWeight,style: TextStyle(fontWeight: FontWeight.w500),)
+                        Text(petData.petWeight,style: const TextStyle(fontWeight: FontWeight.w500),)
                       ],
                     ),
                 ),
@@ -131,14 +132,22 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
           border: Border.all(color: purpleColor),
         ),
         child: IconButton(
-          onPressed: () {
-            setState(() {
-              isFavorite = !isFavorite;
-            });
+          onPressed: ()async {
+            
+          favpet.AddtoFavourite(petid: petData.petId); 
+                                ScaffoldMessenger.of(context).showSnackBar(
+         SnackBar(
+          backgroundColor: purpleColor,
+          content: const Text('Item added favourite successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+          duration: const Duration(seconds: 4),
+          
+        ));
+        await Navigator.push(context,MaterialPageRoute(builder:(context)=>const PetFavouritePage()));
+              
+            
           },
-          icon: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_outline,
-            color: isFavorite ? Colors.red : purpleColor,
+          icon: const Icon(
+          Icons.favorite,color: Colors.red,
           ),
         ),
       ),
@@ -164,9 +173,9 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                         child:  Center(child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.shopping_cart_checkout,color: Colors.white,),
+                            const Icon(Icons.shopping_cart_checkout,color: Colors.white,),
                             SizedBox(width: size.width*0.02),
-                            Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900),),
+                            const Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900),),
                           ],
                         )),
                                          ),

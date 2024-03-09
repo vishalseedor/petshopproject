@@ -8,7 +8,7 @@ import 'package:pet_shop/screens/PetFavouriteScreen/models/petfavmodel.dart';
 
 
 class FavouriteProvider extends ChangeNotifier {
-  String? userid;
+ 
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -30,9 +30,9 @@ class FavouriteProvider extends ChangeNotifier {
   bool get isError {
     return _isError;
   }
-  FavouriteModel? cartDetails;
-  List<FavouriteModel> _favourites = [];
-  List<FavouriteModel> get favourites {
+  FavouiteModel? cartDetails;
+  List< FavouiteModel> _favourites = [];
+  List< FavouiteModel> get favourites {
     return [..._favourites];
   }
 
@@ -58,10 +58,10 @@ class FavouriteProvider extends ChangeNotifier {
         final List<dynamic> favDetails = extractedData['petDetails'];
         for (var i = 0; i < favDetails.length; i++) {
           _favourites.add(
-            FavouriteModel(
+            FavouiteModel(
               petid:favDetails[i]['petid'].toString(),
-              name: favDetails[i]['Name'].toString(),
-              species: favDetails[i]['Species'].toString(),
+              name: favDetails[i]['name'].toString(),
+              species: favDetails[i]['species'].toString(),
               breed:favDetails[i]['breed'].toString(),
               age: favDetails[i]['age'].toString(),
               sex: favDetails[i]['sex'].toString(),
@@ -75,7 +75,6 @@ class FavouriteProvider extends ChangeNotifier {
               notes: favDetails[i]['notes'].toString(),
               status: favDetails[i]['status'].toString(),
               photo: favDetails[i]['photo'].toString(),
-              price: favDetails[i]['price'].toString(),
               addeddate: favDetails[i]['addeddate'].toString()
             
              
@@ -103,42 +102,27 @@ class FavouriteProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  // Future<void> deleteCart(String cartId) async {
-  //   final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
+  Future<void> AddtoFavourite({String? petid}) async {
+    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=1&petid=$petid');
     
-  //   try {
-  //     final response = await https.delete(url);
+    try {
+      final response = await https.post(url);
 
-  //     if (response.statusCode == 200) {
-  //       getAllCartsData();
-  //       // Cart deleted successfully
-  //       print('Cart deleted successfully');
-  //     } else {
-  //       // Failed to delete cart
-  //       print('Failed to delete cart: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error deleting cart: $e');
-  //   }
-  // }
-  // Future<void> clearCart({String? userid}) async {
-  //   final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
-    
-  //   try {
-  //     final response = await https.delete(url);
-
-  //     if (response.statusCode == 200) {
-  //       getAllCartsData();
-  //       // Cart deleted successfully
-  //       print('Cart deleted successfully');
-  //     } else {
-  //       // Failed to delete cart
-  //       print('Failed to delete cart: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error deleting cart: $e');
-  //   }
-  // }
+      if (response.statusCode == 200) {
+      getAllFavouritesData();
+        print(url);
+     
+        // Cart deleted successfully
+        print('Fav added successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to delete cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error deleting cart: $e');
+    }
+  }
+ 
 
 
  

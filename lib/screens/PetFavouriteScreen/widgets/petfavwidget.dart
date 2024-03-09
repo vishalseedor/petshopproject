@@ -2,11 +2,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:pet_shop/Helpers/Colors/colors.dart';
 
 
 class AllFavouriteWidget extends StatefulWidget {
   final String id;
   final String name;
+  final String breedname;
   final String image;
   
 
@@ -14,6 +16,7 @@ class AllFavouriteWidget extends StatefulWidget {
       {super.key,
     required this.id,
     required this.name,
+    required this.breedname,
     required this.image
    
       });
@@ -72,13 +75,11 @@ class _AllFavouriteWidgetState extends State<AllFavouriteWidget > {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 6.0),
-                      child: Text(
-                        widget.name,
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
+                    Text(
+                      widget.name.substring(0,16)
+                    ,                        style: TextStyle(color:purpleColor,fontWeight: FontWeight.bold,),
                     ),
+                    Text(widget.breedname,style: TextStyle(fontWeight: FontWeight.w900,fontSize: 11),)
                   
                   ],
                 ),

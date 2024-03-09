@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-class FavouriteModel {
+class FavouiteModel {
   final String petid;
   final String name;
   final String species;
@@ -14,13 +13,12 @@ class FavouriteModel {
   final String aid;
   final String diet;
   final String behaviour;
-  final String notes;
   final String status;
-  final String photo;
-  final String price;
+  final String notes;
   final String addeddate;
+  final String photo;
 
-  FavouriteModel(
+  FavouiteModel (
       {required this.petid,
       required this.name,
       required this.species,
@@ -34,31 +32,31 @@ class FavouriteModel {
       required this.aid,
       required this.diet,
       required this.behaviour,
-      required this.notes,
       required this.status,
-      required this.photo,
-      required this.price,
-      required this.addeddate});
+      required this.notes,
+      required this.addeddate,
+      required this.photo});
 
-  factory FavouriteModel.fromJson(Map<String, dynamic> json) {
-    return FavouriteModel(
-        petid: json['petid'],
-        name: json['Name'],
-        species: json['Species'],
-        breed: json['breed'],
-        age: json['age'],
+  factory FavouiteModel.fromJson(Map<String, dynamic> json) {
+    return FavouiteModel(
+      petid: json['petid'],
+      name: json['name'],
+       species: json['species'], 
+       breed:json['breed'], 
+       age: json['age'],
         sex: json['sex'],
-        color: json['color'],
-        weight: json['weight'],
-        dob: json['dob'],
-        microchipid: json['microchipid'],
-        aid: json['aid'],
-        diet: json['diet'],
-        behaviour: json['behaviour'],
-        notes: json['notes'],
-        status: json['status'],
-        photo: json['photo'],
-        price: json['price'],
-        addeddate: json['addeddate']);
+         color: json['color'],
+         weight: json['weight'],
+          dob: json['dob'],
+           microchipid:json['microchipid'], 
+           aid: json['aid'],
+            diet:json['diet'],
+             behaviour: json['behaviour'], 
+             status:json['status'],
+              notes: json['notes'],
+               addeddate:json['addeddate'],
+                photo: json['photo']);
+    
   }
+
 }
