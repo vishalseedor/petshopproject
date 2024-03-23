@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Pet Adoption Center',
         theme: ThemeData(
-          textTheme: GoogleFonts.montserratTextTheme(),
+          textTheme: GoogleFonts.latoTextTheme(),
           colorScheme: ColorScheme.fromSeed(seedColor:purpleColor),
           useMaterial3: true,
         ),

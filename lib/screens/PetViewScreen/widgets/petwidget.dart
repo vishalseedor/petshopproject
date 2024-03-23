@@ -96,12 +96,11 @@ class _AllPetWidgetState extends State<AllPetWidget> {
                     '${widget.age} Years',
                     style: TextStyle(color: Colors.black),
                   ),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(
-                        Icons.pets_outlined,
-                        color: purpleColor,
-                      ),
+                      Image.asset('assets/adopt.png',height: 25,width: 25),
+                      SizedBox(width: size.width*0.03),
                       Text(widget.breed)
                     ],
                   )

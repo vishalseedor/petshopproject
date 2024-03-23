@@ -69,7 +69,7 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
                   text: 'Likes',
                 ),
                 GButton(
-                  icon: LineIcons.dog,
+                  icon:Icons.pets_outlined,
                   text: 'Adoption',
                 ),
                 GButton(

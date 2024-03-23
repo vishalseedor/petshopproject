@@ -61,9 +61,11 @@ class _PetViewScreenState extends State<PetViewScreen> {
         actions: [
          Padding(
           padding: const EdgeInsets.all(8.0),
-          child: IconButton(icon: const Icon(IconlyBold.bag,color: Colors.white,),onPressed: (){
-           Navigator.push(context,MaterialPageRoute(builder:(context)=>const AdoptionScreen()));
-          }),
+          child: InkWell(
+            onTap:(){
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>const AdoptionScreen()));
+            } ,
+            child: Image.asset('assets/cart.png'))
         )
         ],
       ),
