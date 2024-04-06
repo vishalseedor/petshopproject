@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_shop/screens/PetViewScreen/pages/petdetailsscreen.dart';
 
 
-
-
 class AllPetWidget extends StatefulWidget {
   final String petid;
   final String petImage;
