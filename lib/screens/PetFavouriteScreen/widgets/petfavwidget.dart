@@ -1,8 +1,10 @@
 
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
+import 'package:pet_shop/screens/PetFavouriteScreen/provider/petfavprovider.dart';
+import 'package:provider/provider.dart';
+
 
 
 class AllFavouriteWidget extends StatefulWidget {
@@ -10,6 +12,7 @@ class AllFavouriteWidget extends StatefulWidget {
   final String name;
   final String breedname;
   final String image;
+  final String favid;
   
 
   const AllFavouriteWidget(
@@ -17,7 +20,8 @@ class AllFavouriteWidget extends StatefulWidget {
     required this.id,
     required this.name,
     required this.breedname,
-    required this.image
+    required this.image,
+    required this.favid
    
       });
 
@@ -29,8 +33,7 @@ class _AllFavouriteWidgetState extends State<AllFavouriteWidget > {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    //  final pet = Provider.of<PetModel>(context);
-
+    final fav=Provider.of<FavouriteProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
       child: GestureDetector(
@@ -64,7 +67,21 @@ class _AllFavouriteWidgetState extends State<AllFavouriteWidget > {
                   height: 30,
                   child: IconButton.filledTonal(
                     padding: EdgeInsets.zero,
-                    onPressed: () {}, 
+                    onPressed: () {
+                        fav.deleteFav(widget.favid, context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: purpleColor,
+                            content: const Text(
+                              'Cart item Deleted successfully!',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            duration: const Duration(seconds: 4),
+                          ), 
+                        );
+                    }, 
                     iconSize: 18,
                     icon: const Icon(Icons.favorite,color: Colors.red,),
                   ),

@@ -2,8 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
-
 import 'package:pet_shop/screens/PetFavouriteScreen/models/petfavmodel.dart';
+import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
+
+import 'package:provider/provider.dart';
+
+
 
 
 
@@ -35,18 +39,27 @@ class FavouriteProvider extends ChangeNotifier {
   List< FavouiteModel> get favourites {
     return [..._favourites];
   }
+  
+  // List<AddCartItem> _favItems = [];
 
-  Future getAllFavouritesData({BuildContext? context}) async {
+  // List<AddCartItem> get favItems => _favItems;
+
+  // void addToCart(AddCartItem item) {
+  //   _favItems.add(item);
+  //   notifyListeners();
+  // }
+
+  Future getAllFavouritesData({BuildContext? context,String? userId}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=1"),
+            "http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=$userId"),
       );
 
       print(
-            "http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=1");
+            "http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=$userId");
 
       print(response.body);
 
@@ -59,6 +72,7 @@ class FavouriteProvider extends ChangeNotifier {
         for (var i = 0; i < favDetails.length; i++) {
           _favourites.add(
             FavouiteModel(
+              favid: favDetails[i]['fav_id'].toString(),
               petid:favDetails[i]['petid'].toString(),
               name: favDetails[i]['name'].toString(),
               species: favDetails[i]['species'].toString(),
@@ -102,18 +116,46 @@ class FavouriteProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> AddtoFavourite({String? petid}) async {
-    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/pet_shop/api/viewfavpets.php?aid=1&petid=$petid');
-    
+ Future<void> addItemToFavourites(
+      {String? petid, String? userid}) async {
+    var body = {
+      'petid': petid.toString(),
+      'aid': userid.toString(),
+     
+    };
+
     try {
-      final response = await https.post(url);
+      var response = await https.post(
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/pet_shop/api/addfavpet.php?aid=$userid&petid=$petid'),
+          body: body);
 
       if (response.statusCode == 200) {
-      getAllFavouritesData();
-        print(url);
-     
+        // Request successful
+        print('Added to cart successfully');
+        print('Response: ${response.body}');
+      } else {
+        // Request failed with error code
+        print('Failed to add to cart. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception thrown during request
+      print('Failed to add to cart. Exception: $e');
+    }
+  }
+
+Future<void> deleteFav(String? favId, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false);
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/pet_shop/api/delete_fav.php?fav_id=$favId');
+
+    try {
+      final response = await https.delete(url);
+      print(url);
+      if (response.statusCode == 200) {
+        getAllFavouritesData(userId: user.currentUserId);
         // Cart deleted successfully
-        print('Fav added successfully');
+        print('Cart deleted successfully');
       } else {
         // Failed to delete cart
         print('Failed to delete cart: ${response.statusCode}');
@@ -122,7 +164,6 @@ class FavouriteProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
- 
 
 
  

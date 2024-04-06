@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 class FavouiteModel {
+  final String favid;
   final String petid;
   final String name;
   final String species;
@@ -19,7 +20,9 @@ class FavouiteModel {
   final String photo;
 
   FavouiteModel (
-      {required this.petid,
+      {
+      required this.favid,  
+      required this.petid,
       required this.name,
       required this.species,
       required this.breed,
@@ -39,6 +42,7 @@ class FavouiteModel {
 
   factory FavouiteModel.fromJson(Map<String, dynamic> json) {
     return FavouiteModel(
+      favid: json['fav_id'],
       petid: json['petid'],
       name: json['name'],
        species: json['species'], 

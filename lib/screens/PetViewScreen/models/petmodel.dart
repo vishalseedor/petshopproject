@@ -9,6 +9,10 @@ class PetModel  {
   final String petSex;
   final String petAge;
   final String petWeight;
+  final String petcolor;
+  final String petdiet;
+  final String petbehaveier;
+  final String petnotes;
   
 
 
@@ -21,6 +25,10 @@ class PetModel  {
    required this.petAge,
    required this.petSex,
    required this.petWeight,
+   required this.petcolor,
+   required this.petdiet,
+   required this.petbehaveier,
+   required this.petnotes
   
   });
   factory PetModel.fromJson(Map<String,dynamic>json){
@@ -33,6 +41,10 @@ class PetModel  {
       petAge: json['age'],
       petSex:json['sex'],
       petWeight: json['weight'],
+      petcolor: json['color'],
+      petdiet: json['diet'],
+      petbehaveier: json['behaviour'],
+      petnotes: json['notes']
     
       );
   }

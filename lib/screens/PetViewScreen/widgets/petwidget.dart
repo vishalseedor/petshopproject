@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pet_shop/Helpers/Colors/colors.dart';
 import 'package:pet_shop/screens/PetViewScreen/pages/petdetailsscreen.dart';
+
+
 
 
 class AllPetWidget extends StatefulWidget {
@@ -79,7 +80,7 @@ class _AllPetWidgetState extends State<AllPetWidget> {
                     children: [
                      Text(
                       widget.name.substring(0,16),
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
                       overflow: TextOverflow.fade,
                     ),
                      
@@ -99,7 +100,7 @@ class _AllPetWidgetState extends State<AllPetWidget> {
                   Row(
                     //mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Image.asset('assets/adopt.png',height: 25,width: 25),
+                      Image.asset('assets/df.png',height: 28,width: 28),
                       SizedBox(width: size.width*0.03),
                       Text(widget.breed)
                     ],

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
-import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
-import 'package:pet_shop/screens/AdoptionCartScreen/provider/adoptioncartprovider.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/provider/petfavprovider.dart';
+import 'package:pet_shop/screens/PetViewScreen/pages/globalsnackbar.dart';
+import 'package:pet_shop/screens/PetViewScreen/pages/productsnackbar.dart';
 import 'package:pet_shop/screens/PetViewScreen/provider/petprovider.dart';
+import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
+
+
 import 'package:provider/provider.dart';
 class PetDetailsScreen extends StatefulWidget {
   static const routeName = 'pets_details_screen';
@@ -20,10 +23,13 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
    bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
+  GlobalSnackBar _snackBar =GlobalSnackBar();
+  ProductSnackBar _productSnackBar=ProductSnackBar();
     final size=MediaQuery.of(context).size;
        final pets = Provider.of<PetProvider>(context,listen: false);
-        final petcartapi=Provider.of<AdoptionCartProvider>(context,listen: false);
+      
         final favpet=Provider.of<FavouriteProvider>(context,listen: false);
+        final user=Provider.of<UserProvider>(context,listen: false);
       final petData =
         Provider.of<PetProvider>(context).pets.firstWhere((element) => element.petId == widget.id);
     return Scaffold(
@@ -58,16 +64,16 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(petData.petBreed,style: const TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
-                  Text('₹ 40.00',style: TextStyle(color: purpleColor,fontWeight: FontWeight.w900,fontSize: 18),),
+                  Text(petData.petName,style: const TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
+                  Text(petData.petspeciesName,style: TextStyle(color: purpleColor,fontWeight: FontWeight.w900,fontSize: 18),),
                   
                 ],
               ),
               Row(
                 children: [
                   Icon(LineIcons.dog,color: purpleColor),
-                  SizedBox(width: size.width*0.01),
-                  Text('Season Cateory :${petData.petspeciesName}')
+                  SizedBox(width: size.width*0.02),
+                  Text('Breed Name :${petData.petBreed}')
                 ],
               ),
              SizedBox(height: size.height*0.04),
@@ -122,10 +128,16 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                 ],
               ),
               SizedBox(height: size.height*0.02),
+              Text('Pet Color : ${petData.petcolor}',style: TextStyle(fontWeight: FontWeight.bold),),
+                SizedBox(height: size.height*0.01),
+                 Text('Pet Diet : ${petData.petdiet}',style: TextStyle(fontWeight: FontWeight.bold),),
+                   SizedBox(height: size.height*0.01),
+                    Text('Pet Behavoiur : ${petData.petbehaveier}',style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(height: size.height*0.01),       
               const Text('Description',style: TextStyle(fontWeight: FontWeight.w900,fontSize: 17),),
                SizedBox(height: size.height*0.01),
-              const Text('The German Shepherd Dog, often known simply as the German Shepherd, is a highly intelligent and versatile breed. Originally developed in Germany for herding sheep, they have become one of the most popular and recognizable dog breeds worldwide. '),
-              SizedBox(height: size.height*0.04),
+              Text(petData.petnotes),
+             SizedBox(height: size.height*0.03),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -139,17 +151,9 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
       ),
       child: IconButton(
         onPressed: ()async {
-          
-        favpet.AddtoFavourite(petid: petData.petId); 
-                              ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
-        backgroundColor: purpleColor,
-        content: const Text('Item added favourite successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-        duration: const Duration(seconds: 4),
-        
-      ));
-      await Navigator.push(context,MaterialPageRoute(builder:(context)=>const PetFavouritePage()));
-            
+         favpet.addItemToFavourites(petid: petData.petId.toString(),userid: user.currentUserId.toString());
+            SnackBar(backgroundColor: purpleColor,content: const Text('Item add to favourite successfully'),duration: const Duration(seconds: 4),);
+         await Navigator.push(context,MaterialPageRoute(builder: (context)=>const PetFavouritePage()));
           
         },
         icon: const Icon(
@@ -160,15 +164,21 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                   InkWell(
                     onTap: () async{
                       
-                       petcartapi.addItemToCart(petid: petData.petId,quanity:'0'); 
-                              ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(
-        backgroundColor: purpleColor,
-        content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-        duration: const Duration(seconds: 4),
-      ),
-    );
-                           await Navigator.push(context,MaterialPageRoute(builder: (context)=> AdoptionScreen()));
+
+                     SnackBar(backgroundColor: purpleColor,content: const Text('Adoption pet successfully'),duration: const Duration(seconds: 4),);
+                 //   await  Navigator.push(context,MaterialPageRoute(builder: (context)=>const AdoptionNowScreen()));
+
+                       
+                      
+    //                    petcartapi.addItemToCart(petid: petData.petId,quanity:'0'); 
+    //                           ScaffoldMessenger.of(context).showSnackBar(
+    //    SnackBar(
+    //     backgroundColor: purpleColor,
+    //     content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+    //     duration: const Duration(seconds: 4),
+    //   ),
+    // );
+    //                        await Navigator.push(context,MaterialPageRoute(builder: (context)=> AdoptionScreen()));
                     },
                     child: Container(
                      height: size.height*0.07,
@@ -179,7 +189,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                       child:  Center(child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                         Image.asset('assets/cart.png',height: 35,width: 35),
+                         Image.asset('assets/cart.png',height: 30,width: 30),
                           SizedBox(width: size.width*0.04),
                           const Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900),),
                         ],

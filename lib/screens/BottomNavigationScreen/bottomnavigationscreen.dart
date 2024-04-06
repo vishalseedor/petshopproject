@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
-import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
+import 'package:pet_shop/screens/CategoryScreen/pages/categoryscreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
 import 'package:pet_shop/screens/PetViewScreen/pages/petviewscreen.dart';
 import 'package:pet_shop/screens/ProfileScreen/pages/profilescreen.dart';
+
+
 
 
 class PetBottomNavigation extends StatefulWidget {
@@ -20,9 +22,10 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
     int _selectedIndex = 0;
   static  final List<Widget> _widgetOptions = <Widget>[
    const PetViewScreen(),
-   const PetFavouritePage(),
-   const AdoptionScreen(),
-   const ProfilePage()
+   const CategoryScreen(),
+  const PetFavouritePage(),
+   const ProfilePage(),
+  
   ];
   @override
   Widget build(BuildContext context) {
@@ -65,12 +68,13 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
                   
                 ),
                 GButton(
-                  icon: LineIcons.heart,
-                  text: 'Likes',
+                  icon: Icons.pets_outlined,
+                  text: 'Category',
                 ),
+                
                 GButton(
-                  icon:Icons.pets_outlined,
-                  text: 'Adoption',
+                  icon:LineIcons.heart,
+                  text: 'Favourites',
                 ),
                 GButton(
                   icon: LineIcons.user,

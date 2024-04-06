@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
 
+import 'package:pet_shop/screens/ProfileScreen/pages/editprofilescreen.dart';
+import 'package:pet_shop/screens/ProfileScreen/pages/supportscreen.dart';
+import 'package:pet_shop/screens/ProfileScreen/pages/termsandconditionsscreen.dart';
+import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
+import 'package:provider/provider.dart';
+
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -10,6 +17,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+   void initState() {
+    Provider.of<UserProvider>(context,listen: false).getUsertData(context: context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,8 +64,20 @@ class _ProfilePageState extends State<ProfilePage> {
     )
   ]
 ),
-           Text('Bosco Willaiam',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
-           Text('+918870120688',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12),)
+          Consumer<UserProvider>(builder: (context, value, child) {
+                String userName = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userName = value.users[i].firstname;
+                }
+                return Text(
+                  userName,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                );
+              }),
+           
          ],
        ),
          ),
@@ -80,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Date of Birth',style: TextStyle(fontWeight: FontWeight.w900)),
-                      Text('william@gmail.com')
+                      Text('11/03/1999')
                     ],
                   ),
                     SizedBox(height: 20),
@@ -111,52 +134,68 @@ class _ProfilePageState extends State<ProfilePage> {
          SizedBox(height: 20),
          Padding(
            padding: const EdgeInsets.symmetric(horizontal: 20),
-           child: Card(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
-              child: Row(
-               
-                children: [
-                  Icon(IconlyLight.lock,color: Colors.red,),
-                  SizedBox(width: 20),
-                  Text('Change Password',style: TextStyle(fontWeight: FontWeight.w900),)
-                ],
+           child: InkWell(
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>const ProfileEditScreen()));
+            },
+             child: Card(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+                child: Row(
+                 
+                  children: [
+                    Icon(IconlyLight.profile,color: Colors.red,),
+                    SizedBox(width: 20),
+                    Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.w900),)
+                  ],
+                ),
               ),
-            ),
+             ),
            ),
          ),
             SizedBox(height: 10),
           Padding(
            padding: const EdgeInsets.symmetric(horizontal: 20),
-           child: Card(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
-              child: Row(
-               
-                children: [
-                  Icon(IconlyLight.bookmark,color: Colors.blue,),
-                  SizedBox(width: 20),
-                  Text('My Orders',style: TextStyle(fontWeight: FontWeight.w900),)
-                ],
+           child: InkWell
+           (
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>const SupportScreen()));
+            },
+             child: Card(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+                child: Row(
+                 
+                  children: [
+                    Icon(IconlyLight.bookmark,color: Colors.blue,),
+                    SizedBox(width: 20),
+                    Text('Support',style: TextStyle(fontWeight: FontWeight.w900),)
+                  ],
+                ),
               ),
-            ),
+             ),
            ),
          ),
             SizedBox(height: 10),
           Padding(
            padding: const EdgeInsets.symmetric(horizontal: 20),
-           child: Card(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
-              child: Row(
-               
-                children: [
-                  Icon(IconlyLight.shieldDone,color: Colors.green),
-                  SizedBox(width: 20),
-                  Text('Help',style: TextStyle(fontWeight: FontWeight.w900),)
-                ],
+           child: InkWell(
+            onTap: () {
+              Navigator.push(context,MaterialPageRoute(builder:(context)=>const TermsandConditions()));
+            },
+             child: Card(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+                child: Row(
+                 
+                  children: [
+                    Icon(IconlyLight.shieldDone,color: Colors.green),
+                    SizedBox(width: 20),
+                    Text('Terms & Conditions',style: TextStyle(fontWeight: FontWeight.w900),)
+                  ],
+                ),
               ),
-            ),
+             ),
            ),
          )
         ],

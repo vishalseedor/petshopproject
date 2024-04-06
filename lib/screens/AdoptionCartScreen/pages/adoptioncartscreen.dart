@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 
 
 class AdoptionScreen extends StatefulWidget {
+    static const routeName = 'adoption_screen';
+
 
   const AdoptionScreen({Key? key,}) : super(key: key);
 

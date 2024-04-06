@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pet_shop/ExtraScreens/errorscreen.dart';
 import 'package:pet_shop/ExtraScreens/loadingscreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/provider/petfavprovider.dart';
+import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
+
 import 'package:provider/provider.dart';
 
 
@@ -20,10 +22,11 @@ class _AllFavouritesScreenState extends State<AllFavouritesScreen> {
   @override
   void initState() {
     super.initState();
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
     // Provider.of<PetProvider>(context, listen: false)
     //     .get(context: context, categoryproduct: widget.cateproduct);
     Provider.of<FavouriteProvider>(context, listen: false)
-        .getAllFavouritesData(context: context);
+        .getAllFavouritesData(context: context,userId: userProvider.currentUserId);
   }
 
   @override
