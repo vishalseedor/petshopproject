@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_shop/Helpers/Colors/colors.dart';
 import 'package:pet_shop/screens/PetViewScreen/pages/petdetailsscreen.dart';
 
 
@@ -10,6 +11,7 @@ class AllPetWidget extends StatefulWidget {
   final String age;
   final String gender;
   final String species;
+  final String price;
  
 
   const AllPetWidget(
@@ -21,6 +23,7 @@ class AllPetWidget extends StatefulWidget {
       required this.age,
       required this.gender,
       required this.species,
+      required this.price
     
       });
 
@@ -78,13 +81,13 @@ class _AllPetWidgetState extends State<AllPetWidget> {
                     children: [
                      Text(
                       widget.name.substring(0,16),
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                       overflow: TextOverflow.fade,
                     ),
                      
                     ],
                   ),
-                   Text(widget.gender),
+                   Text('₹ : ${widget.price}', style: Theme.of(context).textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w700,color: purpleColor),),
                   Text(
                     widget.species,
                     style: TextStyle(

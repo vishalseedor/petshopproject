@@ -35,7 +35,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         // ignore: prefer_const_constructors
         },icon: Icon(Icons.arrow_back,color: Colors.white,)),
         backgroundColor: purpleColor,
-        title: const Text('Category Pets',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),
+        title: const Text('My Orders',style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),
       ),
     body:SingleChildScrollView(
       child: Padding(
@@ -87,6 +87,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                        date: order.orders[index].date,
                        species: order.orders[index].species,
                        totalAmount: order.orders[index].totalAmount,
+                       purchaseType: order.orders[index].purchaseType,
                       
                         );
                     },

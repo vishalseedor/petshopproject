@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
+import 'package:pet_shop/screens/AdoptionCartScreen/provider/adoptionprovider.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/provider/petfavprovider.dart';
 import 'package:pet_shop/screens/PetViewScreen/pages/globalsnackbar.dart';
@@ -27,7 +28,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
   ProductSnackBar _productSnackBar=ProductSnackBar();
     final size=MediaQuery.of(context).size;
        final pets = Provider.of<PetProvider>(context,listen: false);
-      
+      final adoption=Provider.of<AdoptionProvider>(context,listen: false);
         final favpet=Provider.of<FavouriteProvider>(context,listen: false);
         final user=Provider.of<UserProvider>(context,listen: false);
       final petData =
@@ -65,7 +66,7 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(petData.petName,style: const TextStyle(fontWeight: FontWeight.w900,fontSize: 18),),
-                  Text(petData.petspeciesName,style: TextStyle(color: purpleColor,fontWeight: FontWeight.w900,fontSize: 18),),
+                  Text('₹ :${petData.price}',style: TextStyle(color: purpleColor,fontWeight: FontWeight.w900,fontSize: 18),),
                   
                 ],
               ),
@@ -165,20 +166,60 @@ class _PetDetailsScreenState extends State<PetDetailsScreen> {
                     onTap: () async{
                       
 
-                     SnackBar(backgroundColor: purpleColor,content: const Text('Adoption pet successfully'),duration: const Duration(seconds: 4),);
-                 //   await  Navigator.push(context,MaterialPageRoute(builder: (context)=>const AdoptionNowScreen()));
-
-                       
-                      
-    //                    petcartapi.addItemToCart(petid: petData.petId,quanity:'0'); 
-    //                           ScaffoldMessenger.of(context).showSnackBar(
-    //    SnackBar(
-    //     backgroundColor: purpleColor,
-    //     content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-    //     duration: const Duration(seconds: 4),
-    //   ),
-    // );
-    //                        await Navigator.push(context,MaterialPageRoute(builder: (context)=> AdoptionScreen()));
+                  final provider =
+                                  Provider.of<AdoptionProvider>(context,listen: false);
+                              bool isInCart = provider.adoptions.any(
+                                  (item) => item.petid == petData.petId);
+                              if (isInCart) {
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                               _productSnackBar.productSnackbar(context: context)
+                                // SnackBar(
+                                //   backgroundColor: greencolor,
+                                //   content: const Text(
+                                //     'Item added to cart successfully!',
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                //   duration: const Duration(seconds: 4),
+                                // ),
+                              );
+                              //    ScaffoldMessenger.of(context).showSnackBar(
+                              //   // SnackBar(
+                              //   //   backgroundColor: greencolor,
+                              //   //   content: const Text(
+                              //   //     'Product Already in cart',
+                              //   //     style: TextStyle(
+                              //   //         color: Colors.white,
+                              //   //         fontWeight: FontWeight.bold),
+                              //   //   ),
+                              //   //   duration: const Duration(seconds: 1),
+                              //   // ),
+                              // );
+                              } else {
+                                 adoption.addItemToCart(
+                                  petid: petData.petId.toString(),
+                                  userid: user.currentUserId.toString(),
+                                  quanity: '0');
+                               
+                              ScaffoldMessenger.of(context).showSnackBar(
+                               _snackBar.customSnackbar(context: context)
+                                // SnackBar(
+                                //   backgroundColor: greencolor,
+                                //   content: const Text(
+                                //     'Item added to cart successfully!',
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                //   duration: const Duration(seconds: 4),
+                                // ),
+                              );
+                              //  await Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => MyCartScreen()));
+                              }
                     },
                     child: Container(
                      height: size.height*0.07,

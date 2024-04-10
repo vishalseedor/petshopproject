@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+
 import 'package:pet_shop/Helpers/Colors/colors.dart';
 import 'package:pet_shop/screens/AdoptionCartScreen/provider/adoptionprovider.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,8 @@ class AllAdoptionWidget extends StatefulWidget {
   final String price;
   final String itemtotal;
   final String breedname;
+  final String notes;
+  final String sex;
 
  
 
@@ -26,6 +30,9 @@ class AllAdoptionWidget extends StatefulWidget {
       required this.price,
       required this.itemtotal,
       required this.breedname,
+      required this.notes,
+      required this.sex
+
      
       });
 
@@ -43,53 +50,93 @@ class _AllAdoptionWidgetState extends State<AllAdoptionWidget> {
     int itemTotal = int.parse(widget.price) * quanity;
     //  final pet = Provider.of<PetModel>(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Row(
-       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              height: 100,
-              width: 140,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(image: NetworkImage(widget.image),fit: BoxFit.cover)),
-      
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+          height: 130,
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              side: BorderSide(color: Colors.grey.shade200),
             ),
-          //  SizedBox(width: size.width*0.1),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-           
-              children: [
-              Text(widget.name.substring(0,9),style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900,color: purpleColor),),
-              SizedBox(height: size.height*0.01,),
-              Text(widget.breedname,style: TextStyle(color:darkgreyColor,fontSize: 12,fontWeight: FontWeight.bold),),
-                 SizedBox(height: size.height*0.01,),
-              Text("₹ : ${widget.price}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
-              ],
+            elevation: 0.1,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Container(
+                    height: double.infinity,
+                    width: 90,
+                    margin: const EdgeInsets.only(right: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(widget.image),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.name.substring(0,16),
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 2),
+                        Text(
+                          widget.breedname,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                       
+                       const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '₹ : ${widget.price}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: purpleColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+                            onPressed: (){
+                                adoption.deleteCart(widget.cartid, context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: purpleColor,
+                            content: const Text(
+                              'Cart item Deleted successfully!',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            duration: const Duration(seconds: 4),
+                          ), 
+                        );
+                            }, child:Row(
+                              
+                            children: [
+                              Icon(Icons.delete,color: Colors.white,),
+                              SizedBox(width: size.width*0.02),
+                              Text('Delete',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
+                            ],
+                          ))
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-            IconButton(icon:Icon( Icons.delete,color: purpleColor,size: 30),
-            onPressed: () {
-                adoption.deleteCart(widget.cartid);
-                       ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(
-                           backgroundColor: purpleColor,
-                           content: const Text(
-                             'Cart item Deleted successfully!',
-                             style: TextStyle(
-                                 color: Colors.white,
-                                 fontWeight: FontWeight.bold),
-                           ),
-                           duration: const Duration(seconds: 4),
-                         ));
-            },
-              
-             )
-      
-          ],
+          ),
         ),
-      ),
     );
 
     

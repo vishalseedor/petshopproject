@@ -1,5 +1,6 @@
 
 
+import 'package:pet_shop/screens/AdoptionCartScreen/provider/adoptionprovider.dart';
 import 'package:pet_shop/screens/BottomNavigationScreen/bottomnavigtionprovider.dart';
 import 'package:pet_shop/screens/CategoryScreen/provider/categoryeachprovider.dart';
 import 'package:pet_shop/screens/CategoryScreen/provider/categoryprovider.dart';
@@ -21,5 +22,6 @@ List<SingleChildWidget> multiprovider = [
   ChangeNotifierProvider(create: (context)=>OrderProvider()),
   ChangeNotifierProvider(create: (context)=>UserProvider()),
   ChangeNotifierProvider(create: (context)=>EventProvider()),
-  ChangeNotifierProvider(create: (context)=>FeedbackProvider())
+  ChangeNotifierProvider(create: (context)=>FeedbackProvider()),
+  ChangeNotifierProvider(create: (context)=>AdoptionProvider())
 ];

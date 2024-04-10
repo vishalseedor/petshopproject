@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:pet_shop/screens/AdoptionCartScreen/models/adoptionmodel.dart';
+import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -36,17 +38,17 @@ class AdoptionProvider extends ChangeNotifier {
     return [..._adoptions];
   }
 
-  Future getAllAdoptionData({BuildContext? context}) async {
+  Future getAllAdoptionData({BuildContext? context,String? userid}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_cart.php?user_id=1"),
+            "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_cart.php?user_id=$userid"),
       );
 
       print(
-            "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_cart.php?user_id=1");
+            "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_cart.php?user_id=$userid");
 
       print(response.body);
 
@@ -105,8 +107,56 @@ class AdoptionProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> deleteCart(String cartId) async {
-    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/pet_shop/api/delete_cart.php?cart_id=$cartId');
+
+   Future<void> addItemToCart(
+      {String? petid, String? userid, String? quanity}) async {
+    var body = {
+      'petid': petid.toString(),
+      'user_id': userid.toString(),
+      'quantity': quanity.toString(),
+    };
+
+    try {
+      var response = await https.post(
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/pet_shop/api/add_cart.php?petid=$petid&user_id=$userid&quantity=$quanity'),
+          body: body);
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('Added to cart successfully');
+        print('Response: ${response.body}');
+      } else {
+        // Request failed with error code
+        print('Failed to add to cart. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception thrown during request
+      print('Failed to add to cart. Exception: $e');
+    }
+  }
+  Future<void> deleteCart(String? cartId, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false);
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/pet_shop/api/delete_cart.php?cart_id=$cartId');
+
+    try {
+      final response = await https.delete(url);
+      print(url);
+      if (response.statusCode == 200) {
+        getAllAdoptionData(userid: user.currentUserId);
+        // Cart deleted successfully
+        print('Cart deleted successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to delete cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error deleting cart: $e');
+    }
+  }
+  Future<void> clearCart({String? userid,BuildContext? context}) async {
+    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/pet_shop/api/empty_cart.php?user_id=$userid');
     
     try {
       final response = await https.delete(url);
@@ -123,24 +173,6 @@ class AdoptionProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
-  // Future<void> clearCart({String? userid}) async {
-  //   final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
-    
-  //   try {
-  //     final response = await https.delete(url);
-
-  //     if (response.statusCode == 200) {
-  //       getAllCartsData();
-  //       // Cart deleted successfully
-  //       print('Cart deleted successfully');
-  //     } else {
-  //       // Failed to delete cart
-  //       print('Failed to delete cart: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     print('Error deleting cart: $e');
-  //   }
-  // }
 
 
  

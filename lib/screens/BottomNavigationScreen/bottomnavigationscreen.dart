@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pet_shop/Helpers/Colors/colors.dart';
+import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
 import 'package:pet_shop/screens/CategoryScreen/pages/categoryscreen.dart';
-import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
+
 import 'package:pet_shop/screens/PetViewScreen/pages/petviewscreen.dart';
 import 'package:pet_shop/screens/ProfileScreen/pages/profilescreen.dart';
 
@@ -23,7 +24,7 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
   static  final List<Widget> _widgetOptions = <Widget>[
    const PetViewScreen(),
    const CategoryScreen(),
-  const PetFavouritePage(),
+   const AdoptionScreen(),
    const ProfilePage(),
   
   ];
@@ -35,6 +36,7 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
+   
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -46,16 +48,17 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 12),
             child: GNav(
+              textStyle: TextStyle(fontWeight: FontWeight.w300,color: Colors.white),
               rippleColor: Colors.grey[300]!,
               
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: Colors.white,
-              iconSize: 24,
+              iconSize: 20,
               
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               duration: const Duration(milliseconds: 400),
               tabBackgroundColor:purpleColor, 
               color: Colors.black,
@@ -73,8 +76,9 @@ class _PetBottomNavigationState extends State<PetBottomNavigation> {
                 ),
                 
                 GButton(
-                  icon:LineIcons.heart,
-                  text: 'Favourites',
+                  icon:LineIcons.shoppingBag,
+                  text: 'Cart',
+                 
                 ),
                 GButton(
                   icon: LineIcons.user,

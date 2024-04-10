@@ -13,6 +13,7 @@ class PetModel  {
   final String petdiet;
   final String petbehaveier;
   final String petnotes;
+  final String price;
   
 
 
@@ -28,7 +29,8 @@ class PetModel  {
    required this.petcolor,
    required this.petdiet,
    required this.petbehaveier,
-   required this.petnotes
+   required this.petnotes,
+   required this.price
   
   });
   factory PetModel.fromJson(Map<String,dynamic>json){
@@ -44,7 +46,8 @@ class PetModel  {
       petcolor: json['color'],
       petdiet: json['diet'],
       petbehaveier: json['behaviour'],
-      petnotes: json['notes']
+      petnotes: json['notes'],
+      price: json['price']
     
       );
   }

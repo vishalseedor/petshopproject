@@ -105,7 +105,7 @@ String firstname,String lastname,String dob,String phone,String email,String pas
                       style: TextStyle(  
                         fontSize: 30.0,
                         fontWeight: FontWeight.w900,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: size.height * 0.03),  
@@ -282,7 +282,7 @@ String firstname,String lastname,String dob,String phone,String email,String pas
                           ),
                           suffixIcon: const Icon(Icons.remove_red_eye,color: Colors.black)
                         ),
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.black),
                         validator: (value) {
                           if(value!.isEmpty){
                             return 'Please enter your password';

@@ -1,6 +1,7 @@
   import 'package:flutter/material.dart';
 
 import 'package:pet_shop/Helpers/Colors/colors.dart';
+import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
 
 
@@ -32,7 +33,7 @@ class GlobalSnackBar {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  PetFavouritePage()));
+                        builder: (context) => AdoptionScreen()));
               },
             
 
@@ -48,7 +49,7 @@ class GlobalSnackBar {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.asset('assets/cart.png',height: 20,width: 20,),
+                        Image.asset('assets/addcart.png',height: 20,width: 20,),
                         // Icon(
                         //   Icons.shopping_bag_rounded,
                         //   color: Colors.white,

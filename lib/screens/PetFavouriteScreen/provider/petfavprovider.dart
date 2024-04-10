@@ -7,10 +7,6 @@ import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
 
 import 'package:provider/provider.dart';
 
-
-
-
-
 class FavouriteProvider extends ChangeNotifier {
  
   bool _isLoading = false;
@@ -145,8 +141,8 @@ class FavouriteProvider extends ChangeNotifier {
   }
 
 Future<void> deleteFav(String? favId, BuildContext context) async {
-    final user = Provider.of<UserProvider>(context, listen: false);
-    final url = Uri.parse(
+  final user = Provider.of<UserProvider>(context, listen: false);
+  final url = Uri.parse(
         'http://campus.sicsglobal.co.in/Project/pet_shop/api/delete_fav.php?fav_id=$favId');
 
     try {

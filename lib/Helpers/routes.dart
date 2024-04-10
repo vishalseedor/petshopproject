@@ -1,7 +1,10 @@
 
 
+
+
 import 'package:flutter/material.dart';
-import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
+
+import 'package:pet_shop/screens/AdoptionCartScreen/pages/alladoptioncart.dart';
 import 'package:pet_shop/screens/CategoryScreen/pages/categoryscreen.dart';
 import 'package:pet_shop/screens/CategoryScreen/pages/petcategoryscreen.dart';
 import 'package:pet_shop/screens/PetFavouriteScreen/pages/petfavoutitescreen.dart';
@@ -28,7 +31,8 @@ var customRoutes = <String, WidgetBuilder>{
     );
   },
   'all_favourites_screen':(context) => PetFavouritePage(),
-  'adoption_screen':(context)=>AdoptionScreen(),
+   'all_petadoption_screen':(context)=>AllAdoptionScreen(),
+
   'all_category_screen':(context) => CategoryScreen(),
  'all_orders_screen':(context) => MyOrdersScreen(),
    'event_screen':(context)=>EventScreen(),

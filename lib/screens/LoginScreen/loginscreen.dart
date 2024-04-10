@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
           body: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/bg.jpg'),
+                    image: AssetImage('assets/newlogin.jpg'),
                     fit: BoxFit.cover)),
             child: Center(
               child: SingleChildScrollView(
@@ -154,9 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
                           controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            errorStyle: TextStyle(color: Colors.white),
                               fillColor: Colors.white.withOpacity(0.5),
                               filled: true,
                               prefixIcon: const Icon(
@@ -165,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
                               hintText: 'Email',
-                              hintStyle: const TextStyle(fontSize: 13,color: Colors.white),
+                              hintStyle: const TextStyle(fontSize: 13,color: Colors.white,fontWeight: FontWeight.bold),
                               
                               
                               border: OutlineInputBorder(
@@ -188,12 +190,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
                           obscureText: _passwordVisible,
                           controller: passwordcontroller,
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               fillColor: Colors.white.withOpacity(0.5),
                               filled: true,
+                                errorStyle: TextStyle(color: Colors.white),
                               prefixIcon:
                               const Icon(Icons.lock_outline, color: Colors.white),
                               suffixIcon: IconButton(
@@ -202,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                _passwordVisible
                ? Icons.visibility
                : Icons.visibility_off,
-               color: Colors.grey
+               color: Colors.white
                ),
             onPressed: () {
            
@@ -213,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
                           
                               hintText: 'Password',
-                              hintStyle: const TextStyle(fontSize: 13,color: Colors.white),
+                              hintStyle: const TextStyle(fontSize: 13,color: Colors.white,fontWeight: FontWeight.bold),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none)),
@@ -295,7 +299,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: Colors.white.withOpacity(0.5),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(18.0),
                               side: const BorderSide(color: Colors.transparent),

@@ -80,7 +80,8 @@ class PetProvider with ChangeNotifier {
               petcolor: petDetails[i]['color'].toString(),
               petdiet: petDetails[i]['diet'].toString(),
               petbehaveier: petDetails[i]['behaviour'].toString(),
-              petnotes: petDetails[i]['notes'].toString()
+              petnotes: petDetails[i]['notes'].toString(),
+              price: petDetails[i]['price'].toString()
             ),
           );
         }
@@ -138,7 +139,8 @@ class PetProvider with ChangeNotifier {
               petcolor: petDetails[i]['color'].toString(),
               petdiet: petDetails[i]['diet'].toString(),
               petbehaveier: petDetails[i]['behaviour'].toString(),
-              petnotes: petDetails[i]['notes'].toString()
+              petnotes: petDetails[i]['notes'].toString(),
+              price: petDetails[i]['price'].toString()
             ),
           );
         }

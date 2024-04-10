@@ -1,6 +1,6 @@
 const path = 'assets/';
 const loginBackgroundImages = 'assets/logoimage.jpg';
-const splashImage = 'assets/BN.jpg';
+const splashImage = 'assets/spalsh.png';
 const registerBackgroundImages='assets/K.png';
 const categoryDogImage='assets/dog.png';
 const categoryCatImage='assets/cat.png';

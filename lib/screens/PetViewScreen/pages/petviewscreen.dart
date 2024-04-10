@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:pet_shop/ExtraScreens/loadingscreen.dart';
+import 'package:pet_shop/screens/AdoptionCartScreen/pages/adoptioncartscreen.dart';
 import 'package:pet_shop/screens/CategoryScreen/pages/categoryscreen.dart';
 import 'package:pet_shop/screens/CategoryScreen/provider/categoryprovider.dart';
 import 'package:pet_shop/screens/CategoryScreen/widgets/frontcategorywidget.dart';
@@ -14,14 +13,14 @@ import 'package:pet_shop/screens/ProfileScreen/pages/profilescreen.dart';
 import 'package:pet_shop/screens/ProfileScreen/pages/supportscreen.dart';
 import 'package:pet_shop/screens/ProfileScreen/provider/userprovider.dart';
 import 'package:pet_shop/screens/ViewEventScreen/pages/eventscreen.dart';
+import 'package:pet_shop/screens/ViewOrdersScreen/pages/myordersscreen.dart';
 import 'package:provider/provider.dart';
-
 import '../../../Helpers/Colors/colors.dart';
 
 
 class PetViewScreen extends StatefulWidget {
 
-  const PetViewScreen({super.key});
+const PetViewScreen({super.key});
 
   @override
   State<PetViewScreen> createState() => _PetViewScreenState();
@@ -66,11 +65,10 @@ class _PetViewScreenState extends State<PetViewScreen> {
                   fontSize: 18),
             ),
           
-          Consumer<UserProvider>(builder: (context, value, child) {
+         Consumer<UserProvider>(builder: (context, value, child) {
                 String userAddress = "";
                 for (var i = 0; i < value.users.length; i++) {
                   userAddress = value.users[i].address;
-                  print(userAddress+'vvvvvvvvv');
                 }
                 return Text(
                   '$userAddress , India',
@@ -87,9 +85,9 @@ class _PetViewScreenState extends State<PetViewScreen> {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap:(){
-             
+             Navigator.push(context,MaterialPageRoute(builder:(context)=>const AdoptionScreen()));
             } ,
-            child: Image.asset('assets/cart.png',height: 35,width: 35))
+            child: Image.asset('assets/addcart.png',height: 35,width: 35))
         )
         ],
       ),
@@ -129,7 +127,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
               },
                child: ListTile(
                 leading: Icon(Icons.pets,color: purpleColor,),
-                title: Text('Categories',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                title: const Text('Categories',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                            ),
              ), 
            
@@ -139,7 +137,16 @@ class _PetViewScreenState extends State<PetViewScreen> {
               },
                child: ListTile(
                 leading: Icon(IconlyBold.heart,color: purpleColor,),
-                title: Text('My Favourites',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                title: const Text('My Favourites',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                           ),
+             ),
+              InkWell(
+              onTap: () {
+                Navigator.push(context,MaterialPageRoute(builder:(context)=>const MyOrdersScreen()));
+              },
+               child: ListTile(
+                leading: Icon(IconlyBold.heart,color: purpleColor,),
+                title: const Text('My Orders',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                            ),
              ),
              InkWell(
@@ -148,7 +155,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
               },
                child: ListTile(
                 leading: Icon(IconlyBold.paper,color: purpleColor,),
-                title: Text('Pet Events',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                title: const Text('Pet Events',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                            ),
              ),
              InkWell(
@@ -157,7 +164,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
               },
                child: ListTile(
                 leading: Icon(IconlyBold.message,color: purpleColor,),
-                title: Text('Feedback',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                title: const Text('Feedback',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                            ),
              ),
             InkWell(
@@ -195,7 +202,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => const LoginScreen()));
                           },
-                          child: Text(
+                          child: const Text(
                             'OK',
                             style: TextStyle(
                               fontSize: 14,
@@ -209,7 +216,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
                             // Close the dialog
                             Navigator.of(context).pop();
                           },
-                          child: Text(
+                          child: const Text(
                             'CANCEL',
                             style: TextStyle(
                                fontSize: 14,
@@ -264,7 +271,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
                   },
                 ),
                SizedBox(height: size.height*0.02),
-               Text('Categories',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+               const Text('Categories',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                 SizedBox(height: size.height*0.02),
                category.loadingSpinner
                     ? Column(
@@ -343,6 +350,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
                                 petImage: pet.searchProducts[intex].petImage,
                                 gender: pet.searchProducts[intex].petSex,
                                 species: pet.searchProducts[intex].petspeciesName,
+                                price: pet.searchProducts[intex].price,
                               );
                             },
                           ),
@@ -363,6 +371,7 @@ class _PetViewScreenState extends State<PetViewScreen> {
                                 petImage: pet.pets[intex].petImage,
                                 gender: pet.pets[intex].petSex,
                                 species: pet.pets[intex].petspeciesName,
+                                price: pet.pets[intex].price,
                               );
                             },
                           ),
